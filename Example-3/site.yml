@@ -1,21 +1,34 @@
 ---
 - hosts: all
   tasks:
-  - template:
+  - name: Create config file
+    template:
       src: templates/config.j2
       dest: /tmp/config
       owner: root
       group: root
       mode: 0644
+    notify: Restart Service
 
-  - copy:
+  - name: Install service script
+    copy:
       src: files/service.sh
       dest: /tmp/service.sh
       owner: root
       group: root
       mode: 0755
+    notify: Restart Service
 
-  - lineinfile:
+  - name: Update config
+    lineinfile:
       path: /tmp/config
       line: "enabled yes"
       insertbefore: "^listening_interfaces"
+    tags: Enable_Service
+    notify: Restart Service
+
+  handlers:
+  - name: Restart Service
+    systemd:
+      name: sshd
+      state: restarted
