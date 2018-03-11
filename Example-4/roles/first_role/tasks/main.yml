@@ -1,0 +1,3 @@
+---
+- debug:
+    msg: "{{ some_value }}"

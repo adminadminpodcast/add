@@ -1,0 +1,20 @@
+---
+- hosts: all
+  tasks:
+  - include_role:
+      name: first_role
+    vars:
+      some_value: "is set by the playbook"
+      this_value: "is set by the playbook too"
+    tags: first_pass
+
+  - include_role:
+      name: second_role
+    tags:
+    - second_pass
+
+  - include_role:
+      name: third_role
+    tags:
+    - second_pass
+    - skip_me
