@@ -1,0 +1,21 @@
+---
+- hosts: all
+  tasks:
+  - template:
+      src: templates/config.j2
+      dest: /tmp/config
+      owner: root
+      group: root
+      mode: 0644
+
+  - copy:
+      src: files/service.sh
+      dest: /tmp/service.sh
+      owner: root
+      group: root
+      mode: 0755
+
+  - lineinfile:
+      path: /tmp/config
+      line: "enabled yes"
+      insertbefore: "^listening_interfaces"

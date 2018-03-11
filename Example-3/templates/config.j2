@@ -1,0 +1,13 @@
+# This is an example config file for an example application
+
+listening_interfaces {% for interface in interfaces %}{{ interface }}{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% for domain in domains %}
+server {
+  name {{ domain }}
+{% for remote_ip in remote_ips %}
+  target http://{{ remote_ip }}
+{% endfor %}{# remote_ip #}
+  type http
+}
+{% endfor %}{# domain #}

@@ -1,0 +1,12 @@
+---
+interfaces:
+  - eth0
+  - eth1
+  - eth2
+remote_ips:
+  - 192.0.2.1
+  - 198.51.100.1
+domains:
+  - example.com
+  - example.net
+  - example.org
